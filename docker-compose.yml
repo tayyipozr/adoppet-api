@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  dev-db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123adopped
+      - POSTGRES_DB=adopped
+    ports:
+      - "5434:5432"
+    networks:
+      - adopped-net
+
+  test-db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123adopped
+      - POSTGRES_DB=adopped
+    ports:
+      - "5435:5432"
+    networks:
+      - adopped-net
+
+networks:
+  adopped-net:
