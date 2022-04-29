@@ -11,12 +11,13 @@ import { AtGuard } from './auth/guard';
 import { AdoptModule } from './adopt/adopt.module';
 import { FavoriteModule } from './favorite/favorite.module';
 import { PostModule } from './post/post.module';
+import { NotificationModule } from './notification/notification.module';
 
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-  }), AuthModule, UserModule, PetModule, PrismaModule, AdoptModule, FavoriteModule, PostModule],
+  }), AuthModule, UserModule, PetModule, PrismaModule, AdoptModule, FavoriteModule, PostModule, NotificationModule],
   providers: [{
     provide: APP_GUARD,
     useClass: AtGuard,

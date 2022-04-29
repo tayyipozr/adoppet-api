@@ -31,23 +31,33 @@ async function main() {
     });
   }
 
-  for (const city of data) {
-    console.error(city);
-    console.error(city["il"]);
-    await prisma.city.create({
+  for (const country of countries) {
+    let c = await prisma.country.create({
       data: {
-        name: city["il"],
+        name: country
       }
     });
-    for (const district of city["ilceleri"]) {
-      await prisma.district.create({
+    for (const city of data) {
+      console.error(city);
+      console.error(city["il"]);
+      await prisma.city.create({
         data: {
-          name: district,
-          cityId: city["plaka"]
+          name: city["il"],
+          countryId: c.id,
         }
       });
+      for (const district of city["ilceleri"]) {
+        await prisma.district.create({
+          data: {
+            name: district,
+            cityId: city["plaka"]
+          }
+        });
+      }
     }
   }
+
+
 }
 
 main()
@@ -59,6 +69,7 @@ main()
     await prisma.$disconnect()
   })
 
+var countries = ["Turkiye"]
 
 var data = [
   {
