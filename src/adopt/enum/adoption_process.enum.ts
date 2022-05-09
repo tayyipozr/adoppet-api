@@ -1,0 +1,7 @@
+export enum AdoptionProcess {
+  STARTED = 'STARTED',
+  MESSAGING = 'MESSAGING',
+  CONFIRMATION = 'CONFIRMATION',
+  COMPLETE = 'COMPLETE',
+  REJECTED = 'REJECTED',
+}

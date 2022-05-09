@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAdoptDto } from './dto';
+import { AdoptionProcess } from './enum/adoption_process.enum';
 
 @Injectable()
 export class AdoptService {
@@ -10,7 +11,17 @@ export class AdoptService {
     return this.prisma.adopt.create({
       data: {
         petId,
-        userId
+        userId,
+        adoptionProcessId: 1
+      }
+    });
+  }
+
+  async updateAdoptionStatus(adoptId: number, adoptionProcessId: number) {
+    return this.prisma.adopt.update({
+      where: { id: adoptId },
+      data: {
+        adoptionProcessId
       }
     });
   }

@@ -12,12 +12,13 @@ import { AdoptModule } from './adopt/adopt.module';
 import { FavoriteModule } from './favorite/favorite.module';
 import { PostModule } from './post/post.module';
 import { NotificationModule } from './notification/notification.module';
+import { BlockchainModule } from './blockchain/blockchain.module';
 
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-  }), AuthModule, UserModule, PetModule, PrismaModule, AdoptModule, FavoriteModule, PostModule, NotificationModule],
+  }), AuthModule, UserModule, PetModule, PrismaModule, AdoptModule, FavoriteModule, PostModule, NotificationModule, BlockchainModule],
   providers: [{
     provide: APP_GUARD,
     useClass: AtGuard,

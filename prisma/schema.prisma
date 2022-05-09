@@ -59,6 +59,7 @@ model Pet {
   adopts    Adopt[]
   favorites Favorite[]
   posts     Post[]
+  imageUrls PetImage[]
 
   @@map("pets")
 }
@@ -74,6 +75,9 @@ model Adopt {
 
   userId Int
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  adoptionProcessId Int
+  adoptionProcess   AdoptionProcess @relation(fields: [adoptionProcessId], references: [id], onDelete: Cascade)
 
   @@map("adopts")
 }
@@ -101,8 +105,9 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  title   String
-  content String?
+  title     String
+  content   String?
+  imageUrls String[]
 
   petId Int
   pet   Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
@@ -186,4 +191,22 @@ model Location {
   lng Float
 
   adresses Address[]
+}
+
+model AdoptionProcess {
+  id Int @id @default(autoincrement()) @db.SmallInt
+
+  status String @unique @db.VarChar(15)
+
+  Adopt Adopt[]
+  @@map("adoption_processes")
+}
+
+model PetImage {
+  id Int @id @default(autoincrement())
+
+  petId Int
+  pet   Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  url String @unique
 }
