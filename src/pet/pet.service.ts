@@ -6,6 +6,10 @@ import { CreatePetDto, EditPetDto } from './dto';
 export class PetService {
   constructor(private readonly prisma: PrismaService) { }
 
+  async getAll(typeId: number) {
+    return await this.prisma.pet.findMany({ where: { typeId } });
+  }
+
   async getPets(userId: number) {
     return await this.prisma.pet.findMany({ where: { userId } });
   }

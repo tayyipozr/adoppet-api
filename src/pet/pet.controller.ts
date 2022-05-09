@@ -10,6 +10,11 @@ export class PetController {
 
   constructor(private readonly petService: PetService) { }
 
+  @Get(':id')
+  async getAll(@Param('id', ParseIntPipe) typeId: number) {
+    return await this.petService.getAll(typeId);
+  }
+
   @Get()
   async getPets(@GetUser('id') userId: number) {
     return await this.petService.getPets(userId);

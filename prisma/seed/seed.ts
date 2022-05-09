@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client'
+import { AdoptionProcess } from 'src/adopt/enum/adoption_process.enum';
+import { CreatePetDto } from 'src/pet/dto';
 const prisma = new PrismaClient()
 
 async function main() {
@@ -38,8 +40,6 @@ async function main() {
       }
     });
     for (const city of data) {
-      console.error(city);
-      console.error(city["il"]);
       await prisma.city.create({
         data: {
           name: city["il"],
@@ -57,7 +57,51 @@ async function main() {
     }
   }
 
+  let _adoption_process = [
+    'STARTED',
+    'MESSAGING',
+    'CONFIRMATION',
+    'COMPLETE',
+    'REJECTED',
+  ]
 
+  for (const process of _adoption_process) {
+    await prisma.adoptionProcess.create({
+      data: {
+        status: process
+      }
+    });
+  }
+
+  for (const dog of dogs) {
+    await prisma.pet.create({
+      data: {
+        name: dog.name,
+        typeId: 1,
+        genderId: 1,
+        age: dog.age,
+        description: dog.description,
+        userId: 1,
+        weight: dog.weight,
+        height: dog.height,
+      }
+    });
+  }
+
+  for (const cat of cats) {
+    await prisma.pet.create({
+      data: {
+        name: cat.name,
+        typeId: 2,
+        genderId: cat.genderId,
+        age: cat.age,
+        description: cat.description,
+        userId: 1,
+        weight: cat.weight,
+        height: cat.height,
+      }
+    });
+  }
 }
 
 main()
@@ -1534,3 +1578,278 @@ var data = [
     ]
   }
 ]
+
+var dogs = [
+  {
+    'name': 'Taylor',
+    'description': 'A dog',
+    'age': 2,
+    'height': 50,
+    'weight': 2,
+    'genderId': 2,
+    'typeId': 1
+
+  },
+  {
+    'name': 'Berisha',
+    'description': 'A dog',
+    'age': 3,
+    'height': 20,
+    'weight': 2,
+    'genderId': 1,
+    'typeId': 1
+  },
+  {
+    'name': 'Osai',
+    'description': 'A dog',
+    'age': 6,
+    'height': 70,
+    'weight': 4,
+    'genderId': 1,
+    'typeId': 1
+  }
+];
+
+var cats = [
+  {
+    'name': 'Ferdi',
+    'description': 'A cat',
+    'age': 2,
+    'height': 50,
+    'weight': 2,
+    'genderId': 2,
+    'typeId': 2
+  },
+  {
+    'name': 'Valencia',
+    'description': 'A cat',
+    'age': 3,
+    'height': 30,
+    'weight': 3,
+    'genderId': 1,
+    'typeId': 2
+  }, {
+    'name': 'Blue',
+    'description': 'A cat',
+    'age': 5,
+    'height': 10,
+    'weight': 1,
+    'genderId': 2,
+    'typeId': 2
+  }
+];
+
+var _petImageUrls = [
+  "https://images..com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
+  "https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80",
+  "https://images.unsplash.com/photo-1592754862816-1a21a4ea2281?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
+  "https://images..com/photo-1583337130417-3346a1be7dee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
+  "https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+  "https://images.unsplash.com/photo-1548366086-7f1b76106622?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=676&q=80",
+];
+
+/*
+List < Bird > _birds =[
+  Bird(
+    id: 11,
+    name: "Taylor",
+    age: 2,
+    category: "Bird",
+    color: "Green",
+    height: 50,
+    imageUrls: [
+    "https://cdn.pixabay.com/photo/2019/08/03/18/24/bird-4382321_1280.jpg",
+  ],
+    sex: false,
+    weight: 30,
+  ),
+  Bird(
+    id: 12,
+    name: "Berisha",
+    age: 3,
+    category: "Bird",
+    color: "Purple",
+    height: 20,
+    imageUrls: [
+    "http://www.elitephotoart.com/gallery/photographers/larry_daniel/BD-LD-0013.jpg",
+  ],
+    sex: true,
+    weight: 10,
+  ),
+  Bird(
+    id: 13,
+    name: "Osai",
+    age: 6,
+    category: "Bird",
+    color: "Pink",
+    height: 70,
+    imageUrls: [
+    "https://lh3.googleusercontent.com/proxy/qSafwYQplT9SpCdoML3EXiT43Xwj2Aq0SQdIN6tBV-i6lnmX2WPExuTdXuPQsOKWv4Xireln0RrB_IcFwu1i5LGr_llf",
+  ],
+    sex: false,
+    weight: 40,
+  ),
+  Bird(
+    id: 14,
+    name: "Ferdi",
+    age: 5,
+    category: "Bird",
+    color: "Black",
+    height: 60,
+    imageUrls: [
+    "http://htc-wallpaper.com/wp-content/uploads/2013/11/bird1.jpg",
+  ],
+    sex: true,
+    weight: 25,
+  ),
+  Bird(
+    id: 15,
+    name: "Valencia",
+    age: 1,
+    category: "Bird",
+    color: "Green",
+    height: 40,
+    imageUrls: [
+    "https://www.wallpapertip.com/wmimgs/37-370633_birds-hd-wallpapers-for-mobile-birds-wallpaper-hd.jpg"
+  ],
+    sex: true,
+    weight: 10,
+  ),
+];
+
+List < Rabbit > _rabbits =[
+  Rabbit(
+    id: 16,
+    name: "Taylor",
+    age: 2,
+    category: "Rabbit",
+    color: "Green",
+    height: 50,
+    imageUrls: [
+    "https://i.pinimg.com/750x/e3/ba/3a/e3ba3a1affb368b3ca9052d6540a430b.jpg",
+  ],
+    sex: false,
+    weight: 30,
+  ),
+  Rabbit(
+    id: 17,
+    name: "Berisha",
+    age: 3,
+    category: "Rabbit",
+    color: "Purple",
+    height: 20,
+    imageUrls: [
+    "https://images.unsplash.com/photo-1585504989076-76dc39c74ac3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGV0JTIwcmFiYml0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
+  ],
+    sex: true,
+    weight: 10,
+  ),
+  Rabbit(
+    id: 18,
+    name: "Osai",
+    age: 6,
+    category: "Rabbit",
+    color: "Pink",
+    height: 70,
+    imageUrls: [
+    "https://i.pinimg.com/736x/18/c2/a5/18c2a5876ee529b338c0020a3f857759.jpg",
+  ],
+    sex: false,
+    weight: 40,
+  ),
+  Rabbit(
+    id: 19,
+    name: "Ferdi",
+    age: 5,
+    category: "Rabbit",
+    color: "Black",
+    height: 60,
+    imageUrls: [
+    "https://image.freepik.com/free-photo/portrait-cute-fluffy-gray-rabbit-with-ears-natural-green_78492-3801.jpg",
+  ],
+    sex: true,
+    weight: 25,
+  ),
+  Rabbit(
+    id: 20,
+    name: "Valencia",
+    age: 1,
+    category: "Rabbit",
+    color: "Green",
+    height: 40,
+    imageUrls: [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHcQu2bshegSQTjcanwRyfYR9jQumX8oNRunXvWypbn0W8db1Egn9PuNs8gt6xwLkGMBU&usqp=CAU"
+  ],
+    sex: true,
+    weight: 10,
+  ),
+];
+
+List < Fish > _fishes =[
+  Fish(
+    id: 21,
+    name: "Taylor",
+    age: 2,
+    category: "Fish",
+    color: "Green",
+    height: 50,
+    imageUrls: [
+    "https://thumbs.dreamstime.com/b/goldfish-freshwater-aquarium-green-beautiful-planted-tropical-fish-vertical-photo-145923685.jpg",
+  ],
+    sex: false,
+    weight: 30,
+  ),
+  Fish(
+    id: 22,
+    name: "Berisha",
+    age: 3,
+    category: "Fish",
+    color: "Purple",
+    height: 20,
+    imageUrls: [
+    "https://thumbs.dreamstime.com/b/tropical-colorful-fishes-swimming-aquarium-plants-goldfish-carassius-auratus-captive-fish-vertical-photo-161500552.jpg",
+  ],
+    sex: true,
+    weight: 10,
+  ),
+  Fish(
+    id: 23,
+    name: "Osai",
+    age: 6,
+    category: "Fish",
+    color: "Pink",
+    height: 70,
+    imageUrls: [
+    "https://i.pinimg.com/originals/68/d0/a9/68d0a9a6785572542c973ca0b2f07dd8.jpg",
+  ],
+    sex: false,
+    weight: 40,
+  ),
+  Fish(
+    id: 24,
+    name: "Ferdi",
+    age: 5,
+    category: "Fish",
+    color: "Black",
+    height: 60,
+    imageUrls: [
+    "https://st4.depositphotos.com/6591250/i/600/depositphotos_300579698-stock-photo-tropical-colorful-fishes-swimming-in.jpg",
+  ],
+    sex: true,
+    weight: 25,
+  ),
+  Fish(
+    id: 25,
+    name: "Valencia",
+    age: 1,
+    category: "Fish",
+    color: "Green",
+    height: 40,
+    imageUrls: [
+    "https://lh3.googleusercontent.com/proxy/jkVODWX-0Tugq4F5MIaO4mUdtSvvubg78OzahmZGuo67A0LrZ9k7agyNNlF6zL-ASAC0HsnWZVetxEn8Nil7zYIIPG3bEKNHIR4HHciTzmr1bo24MypV2ptFlsYJHLg6yGreLzUvKCalSHFTF0pLqi1EkRbOi6Xx0YbT8YoPRUsN1D5axCrBlt9cdKGxz7T6VOETj3HYT-RvPcJw9KTETg"
+  ],
+    sex: true,
+    weight: 10,
+  ),
+];
+*/
