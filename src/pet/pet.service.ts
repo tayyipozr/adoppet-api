@@ -6,8 +6,9 @@ import { CreatePetDto, EditPetDto } from './dto';
 export class PetService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async getAll(typeId: number) {
-    return await this.prisma.pet.findMany({ where: { typeId } });
+  async getAll(typeId: number, userId: number) {
+    console.log(await this.prisma.pet.findMany({ where: { typeId, NOT: { userId }, }, include: { imageUrls: true } }));
+    return await this.prisma.pet.findMany({ where: { typeId, NOT: { userId }, }, include: { imageUrls: true } });
   }
 
   async getPets(userId: number) {

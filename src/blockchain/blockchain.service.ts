@@ -56,7 +56,7 @@ export class BlockchainService {
   };
 
 
-  async adoptionTransaction() {
+  async adoptionTransaction(transactionContent: string) {
     /** ENTER YOUR INFORMATION HERE! **/
     const mnemonic = 'era wink patch crazy inform crunch desert junk meadow wheat wash pear';     /* YOUR SEED PHRASE ... */
     const providerOrUrl = 'https://rinkeby.infura.io/v3/865fa442f2f341b6aa5bcba81f4b853b' /* RINKEBY ENDPOINT */
@@ -92,9 +92,10 @@ export class BlockchainService {
     const bytecode = contract.evm.bytecode.object;
 
     /* 3. Send Smart Contract To Blockchain */
-    const adoptionContract = await new web3.eth.Contract(abi, '0x18506EEc278bA43418057f22D335A171b42866b6');
+    const adoptionContract = await new web3.eth.Contract(abi, '0x696C0Cb67db605251E57E062935aBe3870DA5227');
 
-    var value = await adoptionContract.methods.adopt("0xA1E0722B6ADc19c177fD4c107d9585B9c08CFBAC", "0xA1E0722B6ADc19c177fD4c107d9585B9c08CFBAC", 1).call();
+    var value = await adoptionContract.methods.adopt("0xA1E0722B6ADc19c177fD4c107d9585B9c08CFBAC", "0xA1E0722B6ADc19c177fD4c107d9585B9c08CFBAC",
+      transactionContent).call();
 
     console.log("Transaction =>", value);
 
