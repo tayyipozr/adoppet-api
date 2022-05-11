@@ -7,17 +7,17 @@ contract Adoption {
 
     struct animal {
         address owner;
-        address adaptee;
-        uint256 animal_id;
+        address adopter;
+        string content;
     }
 
     function adopt(
         address owner,
-        address adoptee,
-        uint256 animal_id
+        address adopter,
+        string calldata content
     ) public returns (animal memory) {
         counter++;
-        generallist[counter] = animal(owner, adoptee, animal_id);
+        generallist[counter] = animal(owner, adopter, content);
         return generallist[counter];
     }
 }

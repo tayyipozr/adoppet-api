@@ -1,13 +1,15 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import * as admin from 'firebase-admin';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataMessagePayload, MessagingPayload } from 'firebase-admin/lib/messaging/messaging-api';
 
+@Global()
 @Module({
   controllers: [NotificationController],
-  providers: [NotificationService]
+  providers: [NotificationService],
+  exports: [NotificationService]
 })
 export class NotificationModule {
   constructor(config: ConfigService) {

@@ -23,6 +23,7 @@ model User {
   firstName String?
   lastName  String?
   gender    Boolean?
+  token     String?
 
   addressId Int?
 
