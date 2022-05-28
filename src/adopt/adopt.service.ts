@@ -42,7 +42,7 @@ export class AdoptService {
   }
 
   async getApplications(userId: number) {
-    return await this.prisma.adopt.findMany({
+    var adoptions = await this.prisma.adopt.findMany({
       where: {
         userId,
       },
@@ -50,8 +50,21 @@ export class AdoptService {
         pet: true,
         user: true,
         adoptionProcess: true,
-      }
+      },
     });
+
+    for await (const adopt of adoptions) {
+      var url = await this.prisma.petImage.findFirst({
+        where: {
+          petId: adopt.petId
+        }
+      }).then(petImage => {
+        return petImage.url;
+      });
+      adopt['url'] = url;
+    }
+
+    return adoptions;
   }
 
   async updateAdoptionStatus(adoptId: number, adoptionProcessId: number) {
@@ -80,6 +93,13 @@ export class AdoptService {
     var adoptions = [];
 
     for await (const pet of pets) {
+      var url = await this.prisma.petImage.findFirst({
+        where: {
+          petId: pet.id
+        }
+      }).then(petImage => {
+        return petImage.url;
+      });
       try {
         var adopt = await this.prisma.adopt.findFirst({
           where: {
@@ -92,6 +112,7 @@ export class AdoptService {
           },
           rejectOnNotFound: true
         });
+        adopt['url'] = url;
         console.log("Found" + adopt.pet.name);
         console.log(adopt);
         if (adopt != undefined)
