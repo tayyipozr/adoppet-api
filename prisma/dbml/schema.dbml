@@ -1,0 +1,184 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  email String [unique, not null]
+  hash String [not null]
+  hashedRt String
+  firstName String
+  lastName String
+  gender Boolean
+  token String
+  addressId Int
+  pets Pet [not null]
+  adopts Adopt [not null]
+  favorites Favorite [not null]
+  posts Post [not null]
+  Address Address [not null]
+}
+
+Table Pet {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  description String
+  age Int
+  height Float
+  weight Float
+  genderId Int [not null]
+  gender Gender [not null]
+  typeId Int [not null]
+  type Type [not null]
+  userId Int [not null]
+  user User [not null]
+  adopts Adopt [not null]
+  favorites Favorite [not null]
+  posts Post [not null]
+  imageUrls PetImage [not null]
+}
+
+Table Adopt {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  petId Int [not null]
+  pet Pet [not null]
+  userId Int [not null]
+  user User [not null]
+  adoptionProcessId Int [not null]
+  adoptionProcess AdoptionProcess [not null]
+}
+
+Table Favorite {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  petId Int [not null]
+  pet Pet [not null]
+  userId Int [not null]
+  user User [not null]
+}
+
+Table Post {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  title String [not null]
+  content String
+  imageUrls String[] [not null]
+  petId Int [not null]
+  pet Pet [not null]
+  userId Int [not null]
+  user User [not null]
+}
+
+Table Type {
+  id Int [pk, increment]
+  type String [unique, not null]
+  pets Pet [not null]
+}
+
+Table Gender {
+  id Int [pk, increment]
+  gender String [unique, not null]
+  pets Pet [not null]
+}
+
+Table Address {
+  id Int [pk, increment]
+  countryId Int [not null]
+  country Country [not null]
+  cityId Int [not null]
+  city City [not null]
+  districtId Int [not null]
+  district District [not null]
+  locationId Int [not null]
+  Location Location
+  userId Int [unique, not null]
+  user User [not null]
+}
+
+Table Country {
+  id Int [pk, increment]
+  name String [unique, not null]
+  cities City [not null]
+  addresses Address [not null]
+}
+
+Table City {
+  id Int [pk, increment]
+  countryId Int [not null]
+  country Country [not null]
+  name String [unique, not null]
+  districts District [not null]
+  adresses Address [not null]
+}
+
+Table District {
+  id Int [pk, increment]
+  name String [not null]
+  cityId Int [not null]
+  City City [not null]
+  adresses Address [not null]
+}
+
+Table Location {
+  id Int [pk, increment]
+  lat Float [not null]
+  lng Float [not null]
+  adresses Address [not null]
+}
+
+Table AdoptionProcess {
+  id Int [pk, increment]
+  status String [unique, not null]
+  Adopt Adopt [not null]
+}
+
+Table PetImage {
+  id Int [pk, increment]
+  petId Int [not null]
+  pet Pet [not null]
+  url String [unique, not null]
+}
+
+Ref: Pet.genderId > Gender.id [delete: Cascade]
+
+Ref: Pet.typeId > Type.id [delete: Cascade]
+
+Ref: Pet.userId > User.id [delete: Cascade]
+
+Ref: Adopt.petId > Pet.id [delete: Cascade]
+
+Ref: Adopt.userId > User.id [delete: Cascade]
+
+Ref: Adopt.adoptionProcessId > AdoptionProcess.id [delete: Cascade]
+
+Ref: Favorite.petId > Pet.id [delete: Cascade]
+
+Ref: Favorite.userId > User.id [delete: Cascade]
+
+Ref: Post.petId > Pet.id [delete: Cascade]
+
+Ref: Post.userId > User.id [delete: Cascade]
+
+Ref: Address.countryId > Country.id [delete: Cascade]
+
+Ref: Address.cityId > City.id [delete: Cascade]
+
+Ref: Address.districtId > District.id [delete: Cascade]
+
+Ref: Address.locationId > Location.id [delete: Cascade]
+
+Ref: Address.userId > User.id [delete: Cascade]
+
+Ref: City.countryId > Country.id [delete: Cascade]
+
+Ref: District.cityId > City.id [delete: Cascade]
+
+Ref: PetImage.petId > Pet.id [delete: Cascade]

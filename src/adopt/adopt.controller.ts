@@ -19,6 +19,12 @@ export class AdoptController {
     return this.adoptService.getApplications(userId);
   }
 
+  @Get('adopteds')
+  getAdopteds(@GetUser('id') userId: number) {
+    return this.adoptService.getAdopteds(userId);
+  }
+
+
   @Post(':id')
   adopt(@Param('id', ParseIntPipe) petId: number, @GetUser('id') userId: number) {
     return this.adoptService.adopt(petId, userId);

@@ -9,15 +9,27 @@ export class BlockchainController {
 
   constructor(private readonly blockchainService: BlockchainService) { }
 
+  @Get('all')
+  getAll() {
+    return this.blockchainService.getAdoptions();
+  }
+
   @Get()
   deploy() {
     return this.blockchainService.deploy();
   }
 
   @Post()
-  async transact(@Body() content: string) {
+  async transact(@Body() dto: { content: string }) {
     return await this.blockchainService.adoptionTransaction(
-      content
+      dto.content
+    );
+  }
+
+  @Post('donate')
+  async donate(@Body() dto: { donation: string }) {
+    return await this.blockchainService.adoptionDonation(
+      dto.donation
     );
   }
 }

@@ -41,16 +41,57 @@ export class AdoptService {
     return true;
   }
 
+  async getAdopteds(userId: number) {
+    return await this.prisma.adopt.findMany({
+      where: {
+        userId,
+        adoptionProcessId: 4
+      },
+      include: {
+        pet: {
+          select: {
+            id: true,
+            name: true,
+            typeId: true,
+            userId: true,
+            imageUrls: true,
+            description: true,
+            age: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        },
+        user: true,
+        adoptionProcess: true,
+      },
+    });
+  }
+
   async getApplications(userId: number) {
     return await this.prisma.adopt.findMany({
       where: {
         userId,
+        NOT: {
+          adoptionProcessId: 4
+        }
       },
       include: {
-        pet: true,
+        pet: {
+          select: {
+            id: true,
+            name: true,
+            typeId: true,
+            userId: true,
+            imageUrls: true,
+            description: true,
+            age: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        },
         user: true,
         adoptionProcess: true,
-      }
+      },
     });
   }
 
@@ -71,7 +112,7 @@ export class AdoptService {
     var pets = await this.prisma.pet.findMany({
       where: {
         userId: userId
-      }
+      },
     });
 
     console.log(pets);
@@ -86,7 +127,19 @@ export class AdoptService {
             petId: pet.id
           },
           include: {
-            pet: true,
+            pet: {
+              select: {
+                id: true,
+                name: true,
+                typeId: true,
+                userId: true,
+                imageUrls: true,
+                description: true,
+                age: true,
+                createdAt: true,
+                updatedAt: true,
+              }
+            },
             user: true,
             adoptionProcess: true
           },
