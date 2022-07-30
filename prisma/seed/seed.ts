@@ -83,7 +83,7 @@ async function main() {
         genderId: 1,
         age: dog.age,
         description: dog.description,
-        userId: 1,
+        userId: index >= 1 ? 1 : 2,
         weight: dog.weight,
         height: dog.height,
       }
@@ -107,7 +107,7 @@ async function main() {
         genderId: cat.genderId,
         age: cat.age,
         description: cat.description,
-        userId: 1,
+        userId: index >= 1 ? 2 : 1,
         weight: cat.weight,
         height: cat.height,
       }

@@ -87,7 +87,7 @@ export class AuthService {
     const secretRt = this.config.get('JWT_RT_SECRET');
 
     const [at, rt] = await Promise.all([
-      this.jwt.signAsync(payload, { expiresIn: '15m', algorithm: 'HS256', secret: secretAt }),
+      this.jwt.signAsync(payload, { expiresIn: '50m', algorithm: 'HS256', secret: secretAt }),
       this.jwt.signAsync(payload, { expiresIn: '1w', algorithm: 'HS256', secret: secretRt }),
     ]);
 
