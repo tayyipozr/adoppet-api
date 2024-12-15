@@ -12,9 +12,9 @@ export class BlockchainService {
 
   async deploy() {
     /** ENTER YOUR INFORMATION HERE! **/
-    const mnemonic = 'era wink patch crazy inform crunch desert junk meadow wheat wash pear';     /* YOUR SEED PHRASE ... */
-    const providerOrUrl = 'https://rinkeby.infura.io/v3/865fa442f2f341b6aa5bcba81f4b853b' /* RINKEBY ENDPOINT */
-    const pathToContract = 'src/blockchain/Adoption.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
+    const mnemonic = '';     /* YOUR SEED PHRASE ... */
+    const providerOrUrl = '' /* RINKEBY ENDPOINT */
+    const pathToContract = 'src/blockchain/AdopToken.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
 
     const provider = new HDWalletProvider({ mnemonic, providerOrUrl });
     const web3 = new Web3(provider);
@@ -57,8 +57,8 @@ export class BlockchainService {
 
   async deployToken() {
     /** ENTER YOUR INFORMATION HERE! **/
-    const mnemonic = 'era wink patch crazy inform crunch desert junk meadow wheat wash pear';     /* YOUR SEED PHRASE ... */
-    const providerOrUrl = 'https://rinkeby.infura.io/v3/865fa442f2f341b6aa5bcba81f4b853b' /* RINKEBY ENDPOINT */
+    const mnemonic = '';     /* YOUR SEED PHRASE ... */
+    const providerOrUrl = '' /* RINKEBY ENDPOINT */
     const pathToContract = 'src/blockchain/AdopToken.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
 
     const provider = new HDWalletProvider({ mnemonic, providerOrUrl });
@@ -115,9 +115,9 @@ export class BlockchainService {
 
   async adoptionTransaction(transactionContent: string) {
     /** ENTER YOUR INFORMATION HERE! **/
-    const mnemonic = 'era wink patch crazy inform crunch desert junk meadow wheat wash pear';     /* YOUR SEED PHRASE ... */
-    const providerOrUrl = 'https://rinkeby.infura.io/v3/865fa442f2f341b6aa5bcba81f4b853b' /* RINKEBY ENDPOINT */
-    const pathToContract = 'src/blockchain/Adoption.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
+    const mnemonic = '';     /* YOUR SEED PHRASE ... */
+    const providerOrUrl = '' /* RINKEBY ENDPOINT */
+    const pathToContract = 'src/blockchain/AdopToken.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
 
     const provider = new HDWalletProvider({ mnemonic, providerOrUrl });
     const web3 = new Web3(provider);
@@ -162,9 +162,9 @@ export class BlockchainService {
 
   async getAdoptions() {
     /** ENTER YOUR INFORMATION HERE! **/
-    const mnemonic = 'era wink patch crazy inform crunch desert junk meadow wheat wash pear';     /* YOUR SEED PHRASE ... */
-    const providerOrUrl = 'https://rinkeby.infura.io/v3/865fa442f2f341b6aa5bcba81f4b853b' /* RINKEBY ENDPOINT */
-    const pathToContract = 'src/blockchain/Adoption.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
+    const mnemonic = '';     /* YOUR SEED PHRASE ... */
+    const providerOrUrl = '' /* RINKEBY ENDPOINT */
+    const pathToContract = 'src/blockchain/AdopToken.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
 
     const provider = new HDWalletProvider({ mnemonic, providerOrUrl });
     const web3 = new Web3(provider);
@@ -210,8 +210,8 @@ export class BlockchainService {
 
   async adoptionDonation(amount: string) {
     /** ENTER YOUR INFORMATION HERE! **/
-    const mnemonic = 'era wink patch crazy inform crunch desert junk meadow wheat wash pear';     /* YOUR SEED PHRASE ... */
-    const providerOrUrl = 'https://rinkeby.infura.io/v3/865fa442f2f341b6aa5bcba81f4b853b' /* RINKEBY ENDPOINT */
+    const mnemonic = '';     /* YOUR SEED PHRASE ... */
+    const providerOrUrl = '' /* RINKEBY ENDPOINT */
     const pathToContract = 'src/blockchain/AdopToken.sol';      /* PATH TO SOLIDITY SMART CONTRACT */
 
     const provider = new HDWalletProvider({ mnemonic, providerOrUrl });
